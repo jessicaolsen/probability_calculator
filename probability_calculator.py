@@ -13,14 +13,15 @@ class Hat():
                self.contents.append(key)
         
     def draw(self, num_balls) :
-        self.num_balls = num_balls
+        self.num_balls = min(num_balls, len(self.contents))
+        pulled = []
         if self.num_balls >= len(self.contents) : 
             return self.contents
         else : 
-            original = self.contents 
-            pulled = random.sample(self.contents, num_balls)
-            self.contents = [x for x in original if x not in pulled]
-            return pulled
+            for x in range(self.num_balls): 
+                draw = self.contents.pop(random.randrange(len(self.contents)))
+                pulled.append(draw)
+        return pulled
             
 
 def experiment(hat, expected_balls, num_balls_drawn, num_experiments) :
